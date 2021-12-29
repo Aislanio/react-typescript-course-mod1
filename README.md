@@ -1,70 +1,122 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+1 React: Uma biblioteca/ Framework para trabalhar com desenvolvimento Frontend.
 
-In the project directory, you can run:
+2 Virtual DOM: Árvore de elementos que roda em memória.
 
-### `yarn start`
+3 JSX:  JavaScript XML(HTML no JavaScript)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+4 Configura webpack vs Utilizar o CRA
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Webpack:
+- Controle maior.
+- Mais leve.
 
-### `yarn test`
+CRA: npx create-react-app my-app
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Mais prático.
+- Maior compatibilidade.
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Propiedades (props)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Children= props.children: Voce passa pela abertura das tags: <Button> Texto Children</Button>
 
-### `yarn eject`
+export default function Button(props){
+	return(
+		<button>{props.children}</button>
+	);
+}
+////hOLKES   -FUNÇOES   DE  GANCHO
+Cliclo de vida do  react  / componente 
+1.quando  ele é montando   ex:  quando esse  componente é muntado busque tal coisa em uma api
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. quando ele é atualizado / quando as  props ou os  esstados muda  o componete  ele atualiza
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3.Quando  o  componete  morre(desmontado)/
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+sempre que  a varialvel mudar o  nosso componente vai  atualizar
 
-## Learn More
+import {useState} from 'react';
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+const [slip,setslip]= useState();	                                                                                                                                                                                                                                                                                                                           
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+function MudaContador(){
+		setContador(contador +1);
+	}
+	
+Forma mais correta // ele pega o valor alterado e depois soma
+old = padrão
+setContador((oldContador) => oldContador +1);
+///
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+useEffec// hook  de clico de vida
 
-### Analyzing the Bundle Size
+useEffect(()  =>{//Sempre vai executar quando o componente for montado
+		
+},[]);
+[]-array   de  dependecias /sera todas  as  variaveis que   não
+//o  react  ele   pega  todos  os hooks, mas ele  não  pode estar   dentro  de  um escopo  porque  o react   não  vai   o  encontra, ele deve estar no niver do componente
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+//hook  são  ganchos 
+//
+useEffect(()  =>{//Sempre vai executar quando o componente for atualizado
+		
+},[contador]);
+quando o componente for desmontado
 
-### Making a Progressive Web App
+useEffect(()  =>{
+	return () =>{
+		Quando o componente for desmontado, mas ele acionar quando a dependecia mudar 
+	}
+},[contador])
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+mas para ver se ele quando o componente for
 
-### Advanced Configuration
+useEffect(() => {
+	return () =>{
+		//seu codigo =)
+	}
+},[]) // o array de dependecia tem que estar vazio
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+///// paçar nossa função para outras  propriedades e retorna uma função
 
-### Deployment
+// para  evitar que repita a ação  novamente
+const handleSetContador = useCallback(() =>{
+		setContador((oldContador) => oldContador +1);
+		set.add(handleSetContador);
+	},[]);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+//useMemo evitar que o conta seja repitido ou seja o calculo só vai ser efetuado uma vez
+const nuber = useMemo(() => 24823948 * 4928424,[]);
+/// useEffect assicronno
+useEffect(() =>{
+  		async function  getUserReposit(){
+  			await localStorage.setItem('user-repos',JSON.stringify({}))
+  		}
 
-### `yarn build` fails to minify
+  		getUserReposit();
+  	},[]);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+//
+
+
+const [username,setUsername]=useState("Aislanio");
+	const [userData,setUserData]=useState({});
+	async function getUserGitHubData(){
+		const {data} = await api.get(username);
+		
+		setUserData(data);
+	}
+  return (
+    <div >
+      <h1>HELO WORD</h1>
+      <input type="text" value={username} onChange={(event) =>setUsername(event.target.value)} />
+      <button onClick={getUserGitHubData}>Pesquisar usuário </button>
+    	<div>{userData.name}<br/>
+    	{userData.company}</div>
+    </div>
+  );
